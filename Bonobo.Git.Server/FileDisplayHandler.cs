@@ -14,6 +14,7 @@ namespace Bonobo.Git.Server
     public static class FileDisplayHandler
     {
         public const string NoBrush = "nohighlight";
+        public const string AutoBrush = "";
 
         public static bool IsImage(string fileName)
         {
@@ -121,8 +122,11 @@ namespace Bonobo.Git.Server
                 case ".ts":
                     return "typescript";
 
-                default:
+                case ".txt":
                     return NoBrush;
+
+                default:
+                    return AutoBrush;
             }
         }
 
