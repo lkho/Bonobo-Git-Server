@@ -253,7 +253,7 @@ namespace Bonobo.Git.Server.Controllers
         [WebAuthorizeRepository]
         public ActionResult Tree(Guid id, string encodedName, string encodedPath)
         {
-            bool includeDetails = Request.IsAjaxRequest(); 
+            bool includeDetails = Request.IsAjaxRequest();
 
             ViewBag.ID = id;
             var name = PathEncoder.Decode(encodedName);
@@ -265,7 +265,7 @@ namespace Bonobo.Git.Server.Controllers
             {
                 string referenceName;
                 var files = browser.BrowseTree(name, path, out referenceName, includeDetails).ToList();
-                
+
                 var readme = files.FirstOrDefault(x => x.Path.Equals("readme.md", StringComparison.OrdinalIgnoreCase));
                 string readmeTxt = string.Empty;
                 if (readme != null)
@@ -429,7 +429,7 @@ namespace Bonobo.Git.Server.Controllers
         public ActionResult Tags(Guid id, string encodedName, int page = 1)
         {
             page = page >= 1 ? page : 1;
-            
+
             ViewBag.ID = id;
             ViewBag.ShowShortMessageOnly = true;
             var repo = RepositoryRepository.GetRepository(id);
@@ -450,10 +450,10 @@ namespace Bonobo.Git.Server.Controllers
         }
 
         [WebAuthorizeRepository]
-        public ActionResult Commits(Guid id, string encodedName, int page = 1)
+        public ActionResult Commits(Guid id, string encodedName, int? page = null)
         {
             page = page >= 1 ? page : 1;
-            
+
             ViewBag.ID = id;
             ViewBag.ShowShortMessageOnly = true;
             var repo = RepositoryRepository.GetRepository(id);
@@ -462,7 +462,7 @@ namespace Bonobo.Git.Server.Controllers
                 var name = PathEncoder.Decode(encodedName);
                 string referenceName;
                 int totalCount;
-                var commits = browser.GetCommits(name, page, 10, out referenceName, out totalCount);
+                var commits = browser.GetCommits(name, page.Value, 10, out referenceName, out totalCount);
                 PopulateBranchesData(browser, referenceName);
                 ViewBag.TotalCount = totalCount;
 
@@ -570,7 +570,7 @@ namespace Bonobo.Git.Server.Controllers
                     {
                         var source_repo = RepositoryRepository.GetRepository(id);
                         string sourceRepositoryPath = Path.Combine(UserConfiguration.Current.Repositories, source_repo.Name);
-                        
+
                         LibGit2Sharp.CloneOptions options = new LibGit2Sharp.CloneOptions()
                             {
                                 IsBare = true,

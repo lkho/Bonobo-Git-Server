@@ -30,11 +30,11 @@ namespace Bonobo.Git.Server.App_Start
                             new { controller = "Git", action = "GitUrl" },
                             new { method = new HttpMethodConstraint("GET") });
 
-            routes.MapRoute("IndexRoute", 
+            routes.MapRoute("IndexRoute",
                             "{controller}/Index/",
                             new { action = "Index" });
 
-            routes.MapRoute("CreateRoute", 
+            routes.MapRoute("CreateRoute",
                             "{controller}/Create/",
                             new { action = "Create" });
 
@@ -78,7 +78,7 @@ namespace Bonobo.Git.Server.App_Start
                 new { controller = "Repository", action = "History" },
                             new { id = guid_regex });
 
-            routes.MapRoute("Repository", 
+            routes.MapRoute("Repository",
                             "Repository/{id}/{action}/{reponame}",
                             new { controller = "Repository", action = "Detail", reponame = UrlParameter.Optional },
                             new { id = guid_regex });
@@ -88,7 +88,7 @@ namespace Bonobo.Git.Server.App_Start
                             new { controller = "Account", action = "Detail", username = UrlParameter.Optional },
                             new { id = guid_regex });
 
-            routes.MapRoute("Team", 
+            routes.MapRoute("Team",
                             "Team/{id}/{action}/{teamname}",
                             new { controller = "Team", action = "Detail", teamname = UrlParameter.Optional },
                             new { id = guid_regex });
@@ -100,7 +100,7 @@ namespace Bonobo.Git.Server.App_Start
                             "Repository/{id}/Commits",
                             new { controller = "Repository", action = "Commits", id = string.Empty, page = 1 });
 
-            routes.MapRoute("Default", 
+            routes.MapRoute("Default",
                             "{controller}/{action}/{id}",
                             new { controller = "Home", action = "Index", id = String.Empty });
 
